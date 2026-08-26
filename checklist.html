@@ -109,12 +109,12 @@
     <table class="svc-table">
       <tr>
         <td class="svc-name">Openclaw Gateway</td>
-        <td class="svc-id">ai.openclaw.gateway · :18789 · <span id="openclaw-model">gpt-5.5</span></td>
+        <td class="svc-id">ai.openclaw.gateway · :18789</td>
         <td class="svc-check">
           <div class="step-list">
             <div class="step"><span class="step-num">1.</span><span><code>launchctl print gui/$(id -u)/ai.openclaw.gateway</code> → state=running, pid present</span></div>
             <div class="step"><span class="step-num">2.</span><span><code>lsof -iTCP:18789 -sTCP:LISTEN</code> → node listening</span></div>
-            <div class="step"><span class="step-num">3.</span><span>RTT log: <code>OpenClaw gateway connected (scopes: operator.read, operator.write)</code></span></div>
+            <div class="step"><span class="step-num">3.</span><span>Model: <code id="openclaw-model-primary">openai/gpt-5.5</code> · fallback: <code id="openclaw-model-fallback">anthropic/claude-sonnet-4-6</code></span></div>
           </div>
         </td>
         <td class="svc-status"><span id="badge-openclaw-gateway" class="badge ok">Online</span></td>
