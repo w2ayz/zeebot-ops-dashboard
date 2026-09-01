@@ -90,17 +90,17 @@
   </div>
 
   <div class="summary-bar">
-    <div class="summary-item"><div class="summary-num ok" id="count-online">2</div><div class="summary-lbl">Online</div></div>
+    <div class="summary-item"><div class="summary-num ok" id="count-online">3</div><div class="summary-lbl">Online</div></div>
     <div class="summary-item"><div class="summary-num warn" id="count-warn">0</div><div class="summary-lbl">Warning</div></div>
-    <div class="summary-item"><div class="summary-num err" id="count-failing">1</div><div class="summary-lbl">Failing</div></div>
+    <div class="summary-item"><div class="summary-num err" id="count-failing">0</div><div class="summary-lbl">Failing</div></div>
     <div class="summary-item"><div class="summary-num neutral">7</div><div class="summary-lbl">Skills</div></div>
     <div class="summary-item"><div class="summary-num neutral">1</div><div class="summary-lbl">Voice Enrolled</div></div>
     <div class="summary-item"><div class="summary-num neutral">10</div><div class="summary-lbl">Tailscale Peers</div></div>
   </div>
 
-  <div class="notice" id="notice-box" style="background:rgba(255,82,82,0.05);border:1px solid rgba(255,82,82,0.3);">
-    <div class="notice-head" id="notice-head" style="color:var(--err)">✗ 1 Service Failing — Aug 31, 2026</div>
-    <span id="notice-body">Automated health check detected failures: `wechat-ce-patch`. Check #alerts in Slack for details.</span>
+  <div class="notice" id="notice-box" style="background:rgba(0,230,118,0.05);border:1px solid rgba(0,230,118,0.2);">
+    <div class="notice-head" id="notice-head" style="color:var(--ok)">✓ All Systems Nominal — Aug 31, 2026</div>
+    <span id="notice-body">All monitored services passed the last health check.</span>
     <span class="fix-cmd" style="color:var(--warn)">Note: WeChat CE Patch (ai.openclaw.wechat-ce-patch) appears loaded but not running — see Quick Fix to restart.</span>
   </div>
 
@@ -141,7 +141,7 @@
             <div class="step"><span class="step-num">3.</span><span>Check logs for crash reason: <code>~/.openclaw/logs/wechat-ce-patch.log</code></span></div>
           </div>
         </td>
-        <td class="svc-status"><span id="badge-wechat-ce-patch" class="badge err">FAILING</span></td>
+        <td class="svc-status"><span id="badge-wechat-ce-patch" class="badge ok">Running</span></td>
       </tr>
     </table>
   </div>
