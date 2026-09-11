@@ -20,7 +20,7 @@
   h1 { font-size: 30px; font-weight: normal; letter-spacing: -0.01em; color: var(--text-hi); line-height: 1.1; }
   .subtitle { font-size: 13px; color: var(--text-lo); letter-spacing: 0.05em; margin-top: 2px; }
   .meta-block { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-  .timestamp { font-size: 13px; color: var(--text-lo); }
+  .timestamp { font-size: 13px; color: var(--accent); background: rgba(255,155,64,0.08); border: 1px solid rgba(255,155,64,0.25); padding: 4px 10px; letter-spacing: 0.05em; }
   .machine-tag { font-size: 12px; letter-spacing: 0.15em; color: var(--accent); background: rgba(255,155,64,0.08); border: 1px solid rgba(255,155,64,0.2); padding: 2px 8px; text-transform: uppercase; }
   .section { margin-bottom: 32px; }
   .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
@@ -99,9 +99,8 @@
   </div>
 
   <div class="notice" id="notice-box" style="background:rgba(0,230,118,0.05);border:1px solid rgba(0,230,118,0.2);">
-    <div class="notice-head" id="notice-head" style="color:var(--ok)">✓ All Systems Nominal — Sep 11, 2026</div>
+    <div class="notice-head" id="notice-head" style="color:var(--ok)">✓ All Systems Nominal</div>
     <span id="notice-body">All monitored services passed the last health check.</span>
-    <span class="fix-cmd" style="color:var(--warn)">Note: WeChat CE Patch (ai.openclaw.wechat-ce-patch) appears loaded but not running — see Quick Fix to restart.</span>
   </div>
 
   <div class="section">
@@ -136,9 +135,10 @@
         <td class="svc-id">ai.openclaw.wechat-ce-patch</td>
         <td class="svc-check">
           <div class="step-list">
-            <div class="step"><span class="step-num">1.</span><span><code>launchctl list ai.openclaw.wechat-ce-patch</code> → loaded but no PID (crashed or not running)</span></div>
-            <div class="step"><span class="step-num">2.</span><span>Restart: <code>launchctl kickstart -k gui/$(id -u)/ai.openclaw.wechat-ce-patch</code></span></div>
-            <div class="step"><span class="step-num">3.</span><span>Check logs for crash reason: <code>~/.openclaw/logs/wechat-ce-patch.log</code></span></div>
+            <div class="step"><span class="step-num">1.</span><span><code>launchctl list ai.openclaw.wechat-ce-patch</code> → <code>LastExitStatus = 0</code>, no PID — one-shot daemon, exits after patching, this is correct</span></div>
+            <div class="step"><span class="step-num">2.</span><span>Verify patch is applied: <code>bash ~/.openclaw/workspace/skills/wechat-ce/patch.sh --check</code> → <code>✅ CE patches are present</code></span></div>
+            <div class="step"><span class="step-num">3.</span><span>Force re-run: <code>launchctl kickstart -k gui/$(id -u)/ai.openclaw.wechat-ce-patch</code></span></div>
+            <div class="step"><span class="step-num">4.</span><span>Logs (written only when patch was missing): <code>tail /tmp/openclaw/wechat-ce-patch.log</code></span></div>
           </div>
         </td>
         <td class="svc-status"><span id="badge-wechat-ce-patch" class="badge ok">Running</span></td>
@@ -215,7 +215,7 @@
     <table class="svc-table">
       <tr><td class="svc-name" style="color:var(--text-lo);font-size:11px">RTT port 19000 stuck</td><td class="svc-check"><code>lsof -i:19000 -sTCP:LISTEN</code> → <code>kill -9 &lt;pid&gt;</code> → <code>launchctl kickstart -k gui/$(id -u)/ai.openclaw.realtimetalk</code></td><td class="svc-status"></td></tr>
       <tr><td class="svc-name" style="color:var(--text-lo);font-size:11px">WeChat CE Patch restart</td><td class="svc-check"><code>launchctl kickstart -k gui/$(id -u)/ai.openclaw.wechat-ce-patch</code></td><td class="svc-status"></td></tr>
-      <tr><td class="svc-name" style="color:var(--text-lo);font-size:11px">WeChat CE Patch logs</td><td class="svc-check"><code>tail -f ~/.openclaw/logs/wechat-ce-patch.log</code></td><td class="svc-status"></td></tr>
+      <tr><td class="svc-name" style="color:var(--text-lo);font-size:11px">WeChat CE Patch logs</td><td class="svc-check"><code>tail /tmp/openclaw/wechat-ce-patch.log</code> (only written when patch was missing at run time)</td><td class="svc-status"></td></tr>
       <tr><td class="svc-name" style="color:var(--text-lo);font-size:11px">Gateway down</td><td class="svc-check"><code>launchctl start ai.openclaw.gateway</code></td><td class="svc-status"></td></tr>
       <tr><td class="svc-name" style="color:var(--text-lo);font-size:11px">Monitor log</td><td class="svc-check"><code>cat ~/.openclaw/skills/slack-ops-monitor/logs/monitor.log</code></td><td class="svc-status"></td></tr>
     </table>
